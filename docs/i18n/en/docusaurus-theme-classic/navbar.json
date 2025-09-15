@@ -1,0 +1,42 @@
+{
+  "title": {
+    "message": "Dinky",
+    "description": "The title in the navbar"
+  },
+  "item.label.home": {
+    "message": "Home",
+    "description": "Navbar item with label home"
+  },
+  "item.label.download": {
+    "message": "Download",
+    "description": "Navbar item with label download"
+  },
+  "item.label.developer_guide": {
+    "message": "Developer Guide",
+    "description": "Navbar item with label developer_guide"
+  },
+  "item.label.faq": {
+    "message": "FAQ",
+    "description": "Navbar item with label faq"
+  },
+  "item.label.github": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  },
+  "item.label.how_contribute": {
+    "message": "How to Contribute",
+    "description": "Navbar item with label how_contribute"
+  },
+  "item.label.local_debug": {
+    "message": "Local Debug",
+    "description": "Navbar item with label local_debug"
+  },
+  "item.label.roadmap": {
+    "message": "Roadmap",
+    "description": "Navbar item with label roadmap"
+  },
+  "logo.alt": {
+    "message": "Dinky",
+    "description": "The alt text of navbar logo"
+  }
+}
