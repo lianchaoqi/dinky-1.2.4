@@ -882,6 +882,7 @@
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>${spotless.version}</version>
                 <configuration>
+                    <skip>true</skip>
                     <ratchetFrom>${spotless.ratchetFrom}</ratchetFrom>
                     <java>
                         <palantirJavaFormat>

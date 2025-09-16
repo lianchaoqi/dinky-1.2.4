@@ -35,28 +35,32 @@ public class CdcFormatChangeProcessFunction extends ProcessFunction<String, Stri
     @Override
     public void processElement(String value, ProcessFunction<String, String>.Context ctx, Collector<String> out) throws Exception {
         try {
-
-            // 解析CDC JSON数据
-            JsonNode jsonNode = objectMapper.readTree(value);
-            String op = jsonNode.get("op").asText();
-            // 转换为可修改的ObjectNode
-            ObjectNode mutableNode = (ObjectNode) jsonNode;
-            Map<String, String> parsedAddColumnsMap = FlinkStatementUtil.parseAddColumns(config.getAddColumns());
-            if ("d".equals(op)) {
-                JsonNode afterNode = jsonNode.get("before");
-                if (afterNode != null && !afterNode.isNull()) {
-                    ObjectNode afterObjectNode = (ObjectNode) afterNode;
-                    addCustomFields(afterObjectNode, parsedAddColumnsMap);
+            String addColumns = config.getAddColumns();
+            if (StringUtils.isNotBlank(addColumns)) {
+                JsonNode jsonNode = objectMapper.readTree(value);
+                ObjectNode mutableNode = (ObjectNode) jsonNode;
+                // 解析CDC JSON数据
+                String op = jsonNode.get("op").asText();
+                // 转换为可修改的ObjectNode
+                Map<String, String> parsedAddColumnsMap = FlinkStatementUtil.parseAddColumns(addColumns);
+                if ("d".equals(op)) {
+                    JsonNode afterNode = jsonNode.get("before");
+                    if (afterNode != null && !afterNode.isNull()) {
+                        ObjectNode afterObjectNode = (ObjectNode) afterNode;
+                        addCustomFields(afterObjectNode, parsedAddColumnsMap);
+                    }
+                } else {
+                    // 非删除操作：直接在after数据中添加字段
+                    JsonNode afterNode = jsonNode.get("after");
+                    if (afterNode != null && !afterNode.isNull()) {
+                        ObjectNode afterObjectNode = (ObjectNode) afterNode;
+                        addCustomFields(afterObjectNode, parsedAddColumnsMap);
+                    }
                 }
+                out.collect(objectMapper.writeValueAsString(mutableNode));
             } else {
-                // 非删除操作：直接在after数据中添加字段
-                JsonNode afterNode = jsonNode.get("after");
-                if (afterNode != null && !afterNode.isNull()) {
-                    ObjectNode afterObjectNode = (ObjectNode) afterNode;
-                    addCustomFields(afterObjectNode, parsedAddColumnsMap);
-                }
+                out.collect(value);
             }
-            out.collect(objectMapper.writeValueAsString(mutableNode));
         } catch (Exception e) {
             // 出错时返回原始数据，避免数据丢失
             if (StringUtils.isNotBlank(value) && value.contains("before") && value.contains("after")) {
