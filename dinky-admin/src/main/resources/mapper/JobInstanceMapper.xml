@@ -3,9 +3,23 @@
 <mapper namespace="org.dinky.mapper.JobInstanceMapper">
 
     <select id="getByIdWithoutTenant" resultType="org.dinky.data.model.job.JobInstance">
-        select *
-        from dinky_job_instance
-        where id = #{id}
+        select
+            ji.*,
+            dt.note as task_note
+        from dinky_job_instance ji
+                 inner join dinky_task dt on ji.task_id = dt.id
+        where ji.id = #{id}
+        limit 1
+    </select>
+
+    <!-- 查询扩展实体类 -->
+    <select id="getJobInstanceExtById" resultType="org.dinky.data.model.job.JobInstanceExt">
+        select
+            ji.*,
+            dt.note as taskNote
+        from dinky_job_instance ji
+                 inner join dinky_task dt on ji.task_id = dt.id
+        where ji.id = #{id}
         limit 1
     </select>
 
@@ -92,9 +106,11 @@
     </select>
 
     <select id="getJobInstanceByTaskId" resultType="org.dinky.data.model.job.JobInstance">
-        select *
-        from dinky_job_instance
-        where task_id = #{id}
+        select      ji.*,
+                    dt.note as task_note
+        from dinky_job_instance ji
+                 inner join dinky_task dt on ji.task_id = dt.id
+        where ji.task_id = #{id}
         order by id desc limit 1
     </select>
 

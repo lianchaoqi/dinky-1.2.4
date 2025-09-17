@@ -34,6 +34,7 @@ public class JobAlertRuleOptions {
     public static final String FIELD_NAME_JOB_ID = "jobId";
     public static final String FIELD_NAME_JOB_STATUS = "jobStatus";
     public static final String FIELD_TASK_ID = "taskId";
+    public static final String FIELD_TASK_NOTE= "taskNote";
     public static final String FIELD_JOB_INSTANCE_ID = "jobInstanceId";
     public static final String FIELD_JOB_TASK_URL = "taskUrl";
     public static final String FIELD_JOB_BATCH_MODEL = "batchModel";

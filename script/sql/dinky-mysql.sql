@@ -1250,6 +1250,8 @@ CREATE TABLE `dinky_job_instance`  (
                                      INDEX `job_instance_task_id_idx1`(`task_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'job instance' ROW_FORMAT = Dynamic;
 
+ALTER TABLE dinky_job_instance ADD COLUMN note VARCHAR(255) NULL COMMENT '新字段说明';
+
 -- ----------------------------
 -- Records of dinky_job_instance
 -- ----------------------------

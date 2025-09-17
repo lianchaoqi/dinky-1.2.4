@@ -22,6 +22,7 @@ package org.dinky.mapper;
 import org.dinky.data.model.home.JobInstanceCount;
 import org.dinky.data.model.home.JobModelOverview;
 import org.dinky.data.model.job.JobInstance;
+import org.dinky.data.model.job.JobInstanceExt;
 import org.dinky.mybatis.mapper.SuperMapper;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -53,4 +54,9 @@ public interface JobInstanceMapper extends SuperMapper<JobInstance> {
 
     @InterceptorIgnore(tenantLine = "true")
     Integer getTenantByJobInstanceId(@Param("id") Integer id);
+
+
+    // 新增：查询扩展实体类
+    @InterceptorIgnore(tenantLine = "true")
+    JobInstanceExt getJobInstanceExtById(Integer id);
 }

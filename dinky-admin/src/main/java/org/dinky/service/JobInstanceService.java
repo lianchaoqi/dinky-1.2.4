@@ -22,6 +22,7 @@ package org.dinky.service;
 import org.dinky.data.model.ext.JobInfoDetail;
 import org.dinky.data.model.home.JobInstanceStatus;
 import org.dinky.data.model.job.JobInstance;
+import org.dinky.data.model.job.JobInstanceExt;
 import org.dinky.data.result.ProTableResult;
 import org.dinky.data.vo.task.JobInstanceVo;
 import org.dinky.explainer.lineage.LineageResult;
@@ -53,6 +54,10 @@ public interface JobInstanceService extends ISuperService<JobInstance> {
      * @return An integer representing the count of job instance statuses.
      */
     JobInstanceStatus getStatusCount();
+
+
+    // 新增：扩展实体类相关方法
+    JobInstanceExt getJobInstanceExtById(Integer id);
 
     /**
      * Get a list of active job instances.

@@ -70,6 +70,12 @@ public class JobInstance implements Serializable {
     @ApiModelProperty(value = "Name", dataType = "String", notes = "Name of the job instance")
     private String name;
 
+    // 添加taskNote字段，但不映射到数据库
+    @ApiModelProperty(value = "Task Note", dataType = "String", notes = "Task note associated with the job instance")
+    @TableField(exist = false)  // 关键：告诉MyBatis-Plus这个字段不对应数据库列
+    private String taskNote;
+
+
     @ApiModelProperty(
             value = "Task ID",
             dataType = "Integer",
@@ -92,6 +98,8 @@ public class JobInstance implements Serializable {
 
     @ApiModelProperty(value = "Status", dataType = "String", notes = "Status of the job instance")
     private String status;
+
+
 
     @ApiModelProperty(
             value = "History ID",

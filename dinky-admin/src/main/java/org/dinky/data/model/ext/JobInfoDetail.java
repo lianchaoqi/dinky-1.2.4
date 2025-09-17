@@ -47,6 +47,7 @@ public class JobInfoDetail implements Serializable {
     @ApiModelProperty(value = "Job Instance", notes = "Details about the job instance")
     private JobInstance instance;
 
+
     @ApiModelProperty(value = "ClusterInstance", notes = "Details about the cluster Instance")
     private ClusterInstance clusterInstance;
 

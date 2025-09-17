@@ -37,6 +37,7 @@ import org.dinky.data.model.home.JobModelOverview;
 import org.dinky.data.model.job.History;
 import org.dinky.data.model.job.JobHistory;
 import org.dinky.data.model.job.JobInstance;
+import org.dinky.data.model.job.JobInstanceExt;
 import org.dinky.data.model.mapping.ClusterConfigurationMapping;
 import org.dinky.data.model.mapping.ClusterInstanceMapping;
 import org.dinky.data.result.ProTableResult;
@@ -143,6 +144,11 @@ public class JobInstanceServiceImpl extends SuperServiceImpl<JobInstanceMapper, 
         return jobInstanceStatus;
     }
 
+    // 新增：扩展实体类相关方法
+    @Override
+    public JobInstanceExt getJobInstanceExtById(Integer id) {
+        return baseMapper.getJobInstanceExtById(id);
+    }
     @Override
     public List<JobInstance> listJobInstanceActive() {
         return baseMapper.listJobInstanceActive();
@@ -153,7 +159,7 @@ public class JobInstanceServiceImpl extends SuperServiceImpl<JobInstanceMapper, 
         if (Asserts.isNull(TenantContextHolder.get())) {
             initTenantByJobInstanceId(id);
         }
-        return getJobInfoDetailInfo(getById(id));
+        return getJobInfoDetailInfo(getByIdWithoutTenant(id));
     }
 
     @Override

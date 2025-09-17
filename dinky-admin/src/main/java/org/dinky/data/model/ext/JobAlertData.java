@@ -59,6 +59,11 @@ public class JobAlertData {
     @Builder.Default
     private String jobStartTime = "";
 
+
+    @JsonProperty(value = JobAlertRuleOptions.FIELD_TASK_NOTE)
+    @Builder.Default
+    private String taskNote = "";
+
     @JsonProperty(value = JobAlertRuleOptions.FIELD_NAME_END_TIME)
     @Builder.Default
     private String jobEndTime = "";
@@ -154,7 +159,6 @@ public class JobAlertData {
     public static JobAlertData buildData(JobInfoDetail jobInfoDetail) {
         JobAlertDataBuilder builder = JobAlertData.builder();
         builder.alertTime(TimeUtil.nowStr());
-
         JobDataDto jobDataDto = jobInfoDetail.getJobDataDto();
         ClusterInstance clusterInstance = jobInfoDetail.getClusterInstance();
         CheckPointOverView checkpoints = jobDataDto.getCheckpoints();
@@ -162,12 +166,13 @@ public class JobAlertData {
 
         JobInstance jobInstance = jobInfoDetail.getInstance();
         String id = jobInstance.getId().toString();
-
+        builder.taskNote(jobInstance.getTaskNote());
         builder.jobStatus(jobInstance.getStatus())
                 .jobInstanceId(jobInstance.getId())
                 .taskId(jobInstance.getTaskId())
                 .taskUrl(buildTaskUrl(jobInstance))
                 .jobName(jobInstance.getName())
+                .taskNote(jobInstance.getTaskNote())
                 .jobId(jobInstance.getJid())
                 .duration(Optional.ofNullable(jobInstance.getDuration()).orElse(0L))
                 .jobStartTime(getTime(jobInstance.getCreateTime()))
@@ -176,6 +181,7 @@ public class JobAlertData {
         if (jobHis != null && jobHis.getConfigJson() != null) {
             builder.batchModel(jobHis.getConfigJson().isBatchModel());
         }
+
 
         if (clusterInstance != null) {
             builder.clusterName(clusterInstance.getName())

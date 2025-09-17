@@ -29,6 +29,7 @@ import org.dinky.data.model.devops.TaskManagerConfiguration;
 import org.dinky.data.model.ext.JobInfoDetail;
 import org.dinky.data.model.home.JobInstanceStatus;
 import org.dinky.data.model.job.JobInstance;
+import org.dinky.data.model.job.JobInstanceExt;
 import org.dinky.data.result.ProTableResult;
 import org.dinky.data.result.Result;
 import org.dinky.data.vo.task.JobInstanceVo;
@@ -116,6 +117,15 @@ public class JobInstanceController {
     public Result<JobInstance> getJobInstanceByTaskId(@RequestParam("taskId") Integer taskId) {
         return Result.succeed(jobInstanceService.getJobInstanceByTaskId(taskId));
     }
+
+    // 新增：扩展实体类相关接口
+    @GetMapping("/getExtById")
+    public Result<JobInstanceExt> getExtById(@RequestParam Integer id) {
+        JobInstanceExt jobInstanceExt = jobInstanceService.getJobInstanceExtById(id);
+        return Result.succeed(jobInstanceExt);
+    }
+
+
 
     /**
      * 获取状态统计信息

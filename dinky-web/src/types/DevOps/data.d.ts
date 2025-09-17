@@ -33,6 +33,7 @@ declare namespace Jobs {
     jobManagerAddress: string;
     jid: string;
     status: string;
+    taskNote: string;
     historyId: number;
     error: string;
     failedRestartCount: number;
